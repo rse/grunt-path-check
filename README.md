@@ -1,7 +1,9 @@
 
 # grunt-path-check
 
-Grunt Task for Checking Existence of Programs on PATH
+Grunt Task for Checking Existence of Programs on PATH.
+In case a program is not found a warning is issues and
+Grunt by default stop processing until option `--force` is used.
 
 <p/>
 <img src="https://nodei.co/npm/grunt-path-check.png?downloads=true&stars=true" alt=""/>
