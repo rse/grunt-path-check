@@ -1,0 +1,36 @@
+{
+    "name":        "grunt-path-check",
+    "homepage":    "http://github.com/rse/grunt-path-check",
+    "description": "Grunt Task for Checking Existence of Programs on PATH",
+    "version":     "0.9.0",
+    "license":     "MIT",
+    "author": {
+        "name":    "Ralf S. Engelschall",
+        "email":   "rse@engelschall.com",
+        "url":     "http://engelschall.com"
+    },
+    "keywords": [
+        "gruntplugin",
+        "path", "check", "executable", "program", "binary"
+    ],
+    "repository": {
+        "type": "git",
+        "url":  "git://github.com/rse/grunt-path-check.git"
+    },
+    "bugs": {
+        "url":  "http://github.com/rse/grunt-path-check/issues"
+    },
+    "main": "Gruntfile.js",
+    "devDependencies": {
+        "grunt":                "~0.4.1",
+        "grunt-cli":            "~0.1.9",
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-clean":  "~0.5.0"
+    },
+    "peerDependencies": {
+        "grunt":                "~0.4.1"
+    },
+    "engines": {
+        "node":                 ">=0.10.0"
+    }
+}
