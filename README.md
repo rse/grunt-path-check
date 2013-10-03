@@ -36,7 +36,7 @@ grunt.loadNpmTasks("grunt-path-check");
 
 (none)
 
-## Expand Include Task
+## Task Usage
 
 _Run this task with the `grunt path-check` command._
 
