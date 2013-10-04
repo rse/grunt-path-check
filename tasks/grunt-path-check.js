@@ -30,7 +30,10 @@ module.exports = function (grunt) {
     /*  define the Grunt task  */
     grunt.registerMultiTask("path-check", "Check Existence of Programs on PATH", function () {
         /*  prepare task options  */
-        var options = this.options({});
+        var options = this.options({
+            mandatory: true,
+            tasks: []
+        });
         grunt.verbose.writeflags(options, "Options");
 
         /*  retrieve the PATH elements  */
@@ -65,11 +68,18 @@ module.exports = function (grunt) {
                 }
             });
         });
-
-        /*  in case any program was not found, finally and
-            intentionally stop Grunt processing now!  */
-        if (errors > 0)
-            grunt.fail.warn(errors + " program(s) not found in PATH!");
+        if (errors > 0) {
+            if (options.mandatory)
+                grunt.fail.warn(errors + " program(s) not found in PATH!");
+            else
+                grunt.log.warn(errors + " program(s) not found in PATH!");
+            if (options.tasks.length > 0)
+                grunt.log.writeln("Skipping dependent tasks: \"" + options.tasks.join("\", \"") + "\"");
+        }
+        else if (options.tasks.length > 0) {
+            grunt.log.writeln("Running dependent tasks: \"" + options.tasks.join("\", \"") + "\"");
+            grunt.task.run(options.tasks);
+        }
     });
 };
 

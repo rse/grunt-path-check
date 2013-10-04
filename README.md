@@ -36,7 +36,14 @@ grunt.loadNpmTasks("grunt-path-check");
 
 ## Task Options
 
-(none)
+- `tasks`: (default `[]`) the names of Grunt tasks to run if
+   the patch check for the `src` programs are successful.
+
+- `mandatory`: (default `true`) whether the
+   patch check for the `src` programs are mandatory, i.e., if they are
+   not successful, stop processing. Set this to `false` in combination
+   with the `tasks` option to execute a task if a program exists or skip
+   a task if a program does not exist.
 
 ## Task Usage
 
@@ -49,13 +56,25 @@ Task targets, files and options may be specified according to the Grunt
 
 ```js
 // [...]
+grunt.loadNpmTasks("grunt-shell");
+grunt.loadNpmTasks("grunt-path-check");
 grunt.initConfig({
+    "shell": {
+        "generate-txt": {
+            command: "w3m -dump doc.html >doc.txt"
+        }
+    },
     "path-check": {
-        "tools": {
-            files: [ "ls", "cp", "perl", "w3m" ]
+        "generate-txt": {
+            src: [ "w3m" ],
+            options: {
+                mandatory: false,
+                tasks: [ "shell:generate-txt" ]
+            }
         }
     }
 });
+grunt.registerTask("default", [ "path-check:generate-txt" ]);
 // [...]
 ```
 
