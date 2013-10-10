@@ -2,7 +2,7 @@
     "name":        "grunt-path-check",
     "homepage":    "http://github.com/rse/grunt-path-check",
     "description": "Grunt Task for Checking Existence of Programs on PATH",
-    "version":     "0.9.1",
+    "version":     "0.9.2",
     "license":     "MIT",
     "author": {
         "name":    "Ralf S. Engelschall",
