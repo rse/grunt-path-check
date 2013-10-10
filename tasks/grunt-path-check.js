@@ -25,7 +25,8 @@
 /* global module: false */
 module.exports = function (grunt) {
     /* global require: false */
-    var path = require("path");
+    var path  = require("path");
+    var chalk = require("chalk");
 
     /*  define the Grunt task  */
     grunt.registerMultiTask("path-check", "Check Existence of Programs on PATH", function () {
@@ -55,7 +56,7 @@ module.exports = function (grunt) {
                     /*  check for program existence  */
                     var file = path.join(dir, name);
                     if (grunt.file.exists(file)) {
-                        grunt.log.writeln("Program \"" + name + "\" found under \"" + file + "\".");
+                        grunt.log.writeln("Program \"" + chalk.green(name) + "\" found under \"" + chalk.green(file) + "\".");
                         found = true;
                     }
                 });
@@ -63,21 +64,29 @@ module.exports = function (grunt) {
                 /*  just record the fact that a program is not found
                     (intentionally still does not abort Grunt processing)  */
                 if (!found) {
-                    grunt.log.warn("Program \"" + name + "\" not found in PATH.");
+                    grunt.log.warn("Program \"" + chalk.red(name) + "\" not found in PATH.");
                     errors++;
                 }
             });
         });
         if (errors > 0) {
             if (options.mandatory)
-                grunt.fail.warn(errors + " program(s) not found in PATH!");
+                grunt.fail.warn(chalk.red(errors) + " program(s) not found in PATH!");
             else
-                grunt.log.warn(errors + " program(s) not found in PATH!");
+                grunt.log.warn(chalk.red(errors) + " program(s) not found in PATH!");
             if (options.tasks.length > 0)
-                grunt.log.writeln("Skipping dependent tasks: \"" + options.tasks.join("\", \"") + "\"");
+                grunt.log.writeln("Skipping dependent tasks: \"" +
+                    options.tasks
+                    .map(function (task) { return chalk.red(task); })
+                    .join("\", \"") +
+                "\"");
         }
         else if (options.tasks.length > 0) {
-            grunt.log.writeln("Running dependent tasks: \"" + options.tasks.join("\", \"") + "\"");
+            grunt.log.writeln("Running dependent tasks: \"" +
+                options.tasks
+                .map(function (task) { return chalk.green(task); })
+                .join("\", \"") +
+            "\"");
             grunt.task.run(options.tasks);
         }
     });
